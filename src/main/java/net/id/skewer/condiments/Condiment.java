@@ -1,13 +1,17 @@
 package net.id.skewer.condiments;
 
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
+import java.util.function.BiConsumer;
 
 public interface Condiment {
-    @Nullable
-    Collection<StatusEffect> getEffects();
+    @Nullable FoodComponent getFoodComponent();
 
-    // add some other stuff for health / hunger, etc. Maybe some things are effected by cooking, maybe.
+    default BiConsumer<PlayerEntity, Item> getOnConsumed(){
+        return (player, item) -> {};
+    }
 }

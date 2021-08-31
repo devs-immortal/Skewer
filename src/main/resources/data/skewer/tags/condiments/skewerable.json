@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "skewer:aioli"
+    "skewer:aioli",
+    "skewer:garlic"
   ]
 }

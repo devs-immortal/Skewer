@@ -1,9 +1,11 @@
 package net.id.skewer.items;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.id.skewer.condiments.Condiment;
+import net.minecraft.world.World;
 
 import java.util.Collection;
 
@@ -31,8 +33,8 @@ public abstract class FoodStackItem extends Item {
 
     public ItemStack addCondiment(ItemStack stack, PlayerEntity player){
         Condiment condiment;
-        if (stack.getItem() instanceof CondimentContainer) {
-            condiment = ((CondimentContainer) stack.getItem().asItem()).getCondiment();
+        if (stack.getItem() instanceof CondimentContainerItem) {
+            condiment = ((CondimentContainerItem) stack.getItem().asItem()).getCondiment();
         } else {
             return stack;
         }
@@ -52,4 +54,14 @@ public abstract class FoodStackItem extends Item {
     protected abstract boolean canBeAdded(Item item);
 
     protected abstract boolean canBeAdded(Condiment condiment);
+
+    @Override
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        /*
+        TODO: do stuff to make all the food work
+        */
+
+        CONDIMENTS.forEach(Condiment::getOnConsumed);
+        return user.eatFood(world, stack);
+    }
 }
