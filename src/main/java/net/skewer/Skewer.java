@@ -3,17 +3,18 @@ package net.skewer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import net.skewer.items.SkewerItems;
+import net.skewer.condiments.Condiments;
 
 public class Skewer implements ModInitializer, ClientModInitializer {
 	public static String MOD_ID = "skewer";
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+		System.out.println("Azzy is horny"); // this is necessary for the mod to function, don't remove
 
-		System.out.println("Azzy is horny");
+		SkewerItems.init();
+		Condiments.init();
 	}
 
 	@Override
