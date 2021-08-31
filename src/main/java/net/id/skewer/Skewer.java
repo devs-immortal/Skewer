@@ -1,10 +1,10 @@
-package net.skewer;
+package net.id.skewer;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
-import net.skewer.items.SkewerItems;
-import net.skewer.condiments.Condiments;
+import net.id.skewer.items.SkewerItems;
+import net.id.skewer.condiments.Condiments;
 
 public class Skewer implements ModInitializer, ClientModInitializer {
 	public static String MOD_ID = "skewer";

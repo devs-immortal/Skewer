@@ -1,4 +1,4 @@
-package net.skewer.condiments;
+package net.id.skewer.condiments;
 
 import net.minecraft.entity.effect.StatusEffect;
 import org.jetbrains.annotations.Nullable;

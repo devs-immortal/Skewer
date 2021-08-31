@@ -1,4 +1,4 @@
-package net.skewer.condiments.sauces;
+package net.id.skewer.condiments.sauces;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
@@ -9,7 +9,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
-import net.skewer.condiments.Condiment;
+import net.id.skewer.condiments.Condiment;
 
 public abstract class Sauce extends Fluid implements Condiment {
 

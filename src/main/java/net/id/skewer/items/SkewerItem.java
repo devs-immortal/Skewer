@@ -1,9 +1,9 @@
-package net.skewer.items;
+package net.id.skewer.items;
 
 import net.minecraft.item.Item;
-import net.skewer.tag.CondimentTags;
-import net.skewer.tag.SkewerItemTags;
-import net.skewer.condiments.Condiment;
+import net.id.skewer.tag.CondimentTags;
+import net.id.skewer.tag.SkewerItemTags;
+import net.id.skewer.condiments.Condiment;
 
 public class SkewerItem extends FoodStackItem {
     public SkewerItem(Settings settings) {

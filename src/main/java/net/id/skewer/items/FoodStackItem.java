@@ -1,9 +1,9 @@
-package net.skewer.items;
+package net.id.skewer.items;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.skewer.condiments.Condiment;
+import net.id.skewer.condiments.Condiment;
 
 import java.util.Collection;
 

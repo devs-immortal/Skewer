@@ -1,4 +1,4 @@
-package net.skewer.mixin;
+package net.id.skewer.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;

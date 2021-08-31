@@ -1,7 +1,7 @@
-package net.skewer.items;
+package net.id.skewer.items;
 
 import net.minecraft.item.Item;
-import net.skewer.condiments.Condiment;
+import net.id.skewer.condiments.Condiment;
 import org.jetbrains.annotations.Nullable;
 
 public class CondimentContainer extends Item {

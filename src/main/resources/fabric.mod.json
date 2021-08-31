@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.skewer.Skewer"
+      "net.id.skewer.Skewer"
     ]
   },
   "mixins": [

@@ -1,9 +1,9 @@
-package net.skewer.condiments;
+package net.id.skewer.condiments;
 
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
+import net.id.skewer.Skewer;
 import net.minecraft.util.registry.Registry;
-import net.skewer.Skewer;
-import net.skewer.condiments.sauces.AioliSauce;
+import net.id.skewer.condiments.sauces.AioliSauce;
 
 public class Condiments {
     public static final Registry<Condiment> CONDIMENT = FabricRegistryBuilder.createSimple(Condiment.class, Skewer.locate("condiment")).buildAndRegister();

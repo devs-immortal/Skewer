@@ -1,10 +1,10 @@
-package net.skewer.items;
+package net.id.skewer.items;
 
+import net.id.skewer.Skewer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.util.registry.Registry;
-import net.skewer.Skewer;
-import net.skewer.condiments.Condiments;
+import net.id.skewer.condiments.Condiments;
 
 public class SkewerItems {
     public static final CondimentContainer AIOLI_DISH = register("aioli_dish", new CondimentContainer(new Settings(), Condiments.AIOLI_SAUCE));

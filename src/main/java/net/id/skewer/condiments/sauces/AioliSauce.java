@@ -1,8 +1,8 @@
-package net.skewer.condiments.sauces;
+package net.id.skewer.condiments.sauces;
 
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
-import net.skewer.items.SkewerItems;
+import net.id.skewer.items.SkewerItems;
 
 import java.util.Collection;
 
