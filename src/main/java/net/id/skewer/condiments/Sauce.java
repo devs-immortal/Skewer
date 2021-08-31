@@ -18,9 +18,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.BiConsumer;
 
 public class Sauce extends Fluid implements Condiment {
-    public FoodComponent component;
-    public BiConsumer<PlayerEntity, Item> onConsumed;
-    public Item bucketItem;
+    private final FoodComponent component;
+    private final BiConsumer<PlayerEntity, Item> onConsumed;
+    private final Item bucketItem;
 
     public Sauce(FoodComponent component, Item bucketItem, BiConsumer<PlayerEntity, Item> onConsumed){
         this.component = component;
@@ -29,9 +29,6 @@ public class Sauce extends Fluid implements Condiment {
     }
     public Sauce(FoodComponent component, Item bucketItem){
         this(component, bucketItem, null);
-    }
-    public Sauce(FoodComponent component){
-        this(component, null);
     }
 
     @Override

@@ -7,61 +7,71 @@ import net.minecraft.item.ItemStack;
 import net.id.skewer.condiments.Condiment;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class FoodStackItem extends Item {
-    public Collection<Item> FOODS;
-    public Collection<Condiment> CONDIMENTS;
+    public Collection<Item> FOODS = new ArrayList<>();
+    public Collection<Condiment> CONDIMENTS = new ArrayList<>();
 
     public FoodStackItem(Settings settings) {
         super(settings);
     }
 
-    public ItemStack addFoodItem(ItemStack stack, PlayerEntity player){
-        if (canBeAdded(stack.getItem())){
-            if (!player.isCreative()){
-                stack.decrement(1);
-            }
-            FOODS.add(stack.getItem());
-        }
-        return stack;
-    }
-
-    public void addFood(Item item){
-        FOODS.add(item);
-    }
-
-    public ItemStack addCondiment(ItemStack stack, PlayerEntity player){
+    public final FoodStackItem with(ItemStack stack, PlayerEntity player){
         Condiment condiment;
-        if (stack.getItem() instanceof CondimentContainerItem) {
-            condiment = ((CondimentContainerItem) stack.getItem().asItem()).getCondiment();
-        } else {
-            return stack;
-        }
-        if (canBeAdded(condiment)) {
-            if (!player.isCreative()){
-                stack.decrement(1);
+        if (stack.getItem() instanceof CondimentContainerItem container) {
+            condiment = container.getCondiment();
+            if (canBeAdded(condiment)) {
+                if (!player.isCreative()){
+                    stack.decrement(1);
+                    if (container.getEmptyContainer() != null) {
+                        player.giveItemStack(container.getEmptyContainer().getDefaultStack());
+                    }
+                }
+                CONDIMENTS.add(condiment);
             }
+        } else {
+            if (canBeAdded(stack.getItem())){
+                if (!player.isCreative()){
+                    stack.decrement(1);
+                }
+                FOODS.add(stack.getItem());
+            }
+        }
+        return this;
+    }
+
+    public <V> FoodStackItem with(V addition){
+        if (addition instanceof Item item) {
+            FOODS.add(item);
+        } else if (addition instanceof Condiment condiment) {
             CONDIMENTS.add(condiment);
         }
-        return stack;
-    }
-
-    public void addCondiment(Condiment condiment){
-        CONDIMENTS.add(condiment);
+        return this;
     }
 
     protected abstract boolean canBeAdded(Item item);
 
     protected abstract boolean canBeAdded(Condiment condiment);
 
+
+    // TODO: this
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        /*
-        TODO: do stuff to make all the food work
-        */
+        FOODS.forEach((food) -> user.eatFood(world, food.getDefaultStack()));
+        CONDIMENTS.forEach((condiment) -> {
+            /*
+                Det Condiments FoodComponent things to work
+             */
+        });
 
         CONDIMENTS.forEach(Condiment::getOnConsumed);
-        return user.eatFood(world, stack);
+
+        FOODS.clear();
+        CONDIMENTS.clear();
+
+
+        return stack;
     }
 }

@@ -14,4 +14,5 @@ public class CondimentTags {
     private static Identified<Condiment> register(String id){
         return REQUIRED_TAGS.add(id);
     }
+
 }

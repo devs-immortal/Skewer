@@ -7,4 +7,5 @@ import net.minecraft.tag.Tag;
 
 public class SkewerItemTags {
     public static final Tag<Item> SKEWERABLE = TagRegistry.item(Skewer.locate("skewerable"));
+
 }

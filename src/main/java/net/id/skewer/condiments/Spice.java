@@ -8,8 +8,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.BiConsumer;
 
 public class Spice implements Condiment{
-    public FoodComponent foodComponent;
-    public BiConsumer<PlayerEntity, Item> onConsumed;
+    private final FoodComponent foodComponent;
+    private final BiConsumer<PlayerEntity, Item> onConsumed;
 
     public Spice(FoodComponent foodComponent, BiConsumer<PlayerEntity, Item> onConsumed){
         this.foodComponent = foodComponent;
@@ -17,7 +17,7 @@ public class Spice implements Condiment{
     }
 
     public Spice(FoodComponent foodComponent){
-        this(foodComponent, null);
+        this(foodComponent, (p, i) -> {});
     }
 
     @Override
@@ -26,7 +26,7 @@ public class Spice implements Condiment{
     }
 
     @Override
-    public @Nullable BiConsumer<PlayerEntity, Item> getOnConsumed() {
+    public BiConsumer<PlayerEntity, Item> getOnConsumed() {
         return onConsumed;
     }
 }

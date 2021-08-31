@@ -11,6 +11,11 @@ public class SkewerItem extends FoodStackItem {
     }
 
     @Override
+    public boolean isFood(){
+        return true;
+    }
+
+    @Override
     public boolean canBeAdded(Item item){
         return SkewerItemTags.SKEWERABLE.contains(item);
     }
