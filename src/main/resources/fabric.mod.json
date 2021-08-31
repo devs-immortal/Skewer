@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "skewer",
   "version": "${version}",
 
   "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "TODO",
   "authors": [
-    "Me!"
+    "TODO"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "TODO",
+    "sources": "https://github.com/devs-immortal/Skewer"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/skewer/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.skewer.Skewer"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "skewer.mixins.json"
   ],
 
   "depends": {
