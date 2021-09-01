@@ -11,10 +11,13 @@ import static net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder.bu
 public class SkewerItemGroups {
     public static final ItemGroup SKEWER_FOODS = build(
             Skewer.locate("foods"),
-            () -> new ItemStack(SkewerItems.SKEWER
-                    .with(Items.COOKED_BEEF)
-                    .with(Items.COOKED_CHICKEN)
-                    .with(Condiments.AIOLI)));
+            () -> {
+                ItemStack stack = new ItemStack(SkewerItems.SKEWER);
+                FoodStackItem.withUnsafe(stack, Items.COOKED_BEEF, 2);
+                FoodStackItem.withUnsafe(stack, Items.COOKED_CHICKEN, 2);
+                FoodStackItem.withUnsafe(stack, Condiments.AIOLI, 1);
+                return stack;
+            });
 
     public static final ItemGroup SKEWER_CONDIMENTS = build(
             Skewer.locate("condiments"),

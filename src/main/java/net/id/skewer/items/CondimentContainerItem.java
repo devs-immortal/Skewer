@@ -55,6 +55,9 @@ public class CondimentContainerItem extends Item{
             if (condiment.getOnConsumed() != null) {
                 condiment.getOnConsumed().accept(player, stack.getItem());
             }
+            if (this.getEmptyContainer() != null){
+                player.giveItemStack(this.emptyContainer.getDefaultStack());
+            }
         }
         return super.finishUsing(stack, world, user);
     }
