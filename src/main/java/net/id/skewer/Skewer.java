@@ -7,7 +7,7 @@ import net.id.skewer.items.SkewerItems;
 import net.id.skewer.condiments.Condiments;
 
 public class Skewer implements ModInitializer, ClientModInitializer {
-	public static String MOD_ID = "skewer";
+	public static final String MOD_ID = "skewer";
 
 	@Override
 	public void onInitialize() {

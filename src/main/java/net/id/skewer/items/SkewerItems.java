@@ -3,7 +3,6 @@ package net.id.skewer.items;
 import net.id.skewer.Skewer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
-import net.minecraft.item.Items;
 import net.minecraft.util.registry.Registry;
 import net.id.skewer.condiments.Condiments;
 

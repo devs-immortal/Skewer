@@ -7,12 +7,9 @@ import net.id.skewer.tag.CondimentTags;
 import net.id.skewer.tag.SkewerItemTags;
 import net.id.skewer.condiments.Condiment;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.world.World;
 
-import java.util.List;
-
-public class SkewerItem extends FoodStackItem {
+public class SkewerItem extends MultiFoodItem {
     public SkewerItem(Settings settings) {
         super(settings);
     }

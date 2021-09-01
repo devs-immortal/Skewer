@@ -13,9 +13,9 @@ public class SkewerItemGroups {
             Skewer.locate("foods"),
             () -> {
                 ItemStack stack = new ItemStack(SkewerItems.SKEWER);
-                FoodStackItem.withUnsafe(stack, Items.COOKED_BEEF, 2);
-                FoodStackItem.withUnsafe(stack, Items.COOKED_CHICKEN, 2);
-                FoodStackItem.withUnsafe(stack, Condiments.AIOLI, 1);
+                MultiFoodItem.withUnsafe(stack, Items.COOKED_BEEF, 2);
+                MultiFoodItem.withUnsafe(stack, Items.COOKED_CHICKEN, 2);
+                MultiFoodItem.withUnsafe(stack, Condiments.AIOLI, 1);
                 return stack;
             });
 
