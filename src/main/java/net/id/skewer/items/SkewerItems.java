@@ -11,21 +11,23 @@ import java.util.function.Consumer;
 
 public class SkewerItems {
 
-    public static Settings foods() {return new Settings().group(SkewerItemGroups.SKEWER_FOODS);}
-    public static Settings condiments() {return new Settings().group(SkewerItemGroups.SKEWER_CONDIMENTS);}
-    public static SkewerItem skewer() {return new SkewerItem(foods());}
-    public static final SkewerItem SKEWER = register("skewer", skewer());
+    // skewers & other whole foods
+    private static Settings foods() {return new Settings().group(SkewerItemGroups.SKEWER_FOODS);}
+    public static final SkewerItem SKEWER = register("skewer", new SkewerItem(foods()));
+
+    // condiments and such
+    private static Settings condiments() {return new Settings().group(SkewerItemGroups.SKEWER_CONDIMENTS);}
     public static final CondimentContainerItem EMPTY_DISH = register("empty_dish", new CondimentContainerItem(condiments(), Condiments.EMPTY));
     public static final CondimentContainerItem AIOLI_DISH = register("aioli_dish", new CondimentContainerItem(condiments(), Condiments.AIOLI, EMPTY_DISH));
-    public static final CondimentContainerItem GARLIC_CLOVE = register("garlic_clove", new CondimentContainerItem(condiments(), Condiments.GARLIC, null, true));
+    public static final CondimentItem GARLIC_CLOVE = register("garlic_clove", new CondimentItem(condiments(), Condiments.GARLIC, true));
 
-    @SafeVarargs
-    private static <V extends Item> V register(String name, V item, Consumer<Item>... also){
-        Arrays.stream(also).forEach((thing) -> thing.accept(item));
+
+
+    private static <V extends Item> V register(String name, V item){
         return Registry.register(Registry.ITEM, Skewer.locate(name), item);
     }
 
     public static void init(){
-        // nothing, lonely, very very lonely
+        // nothing, lonely, very, very lonely
     }
 }

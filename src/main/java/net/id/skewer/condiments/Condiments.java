@@ -1,20 +1,18 @@
 package net.id.skewer.condiments;
 
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.id.skewer.Skewer;
 import net.id.skewer.items.SkewerFoodComponents;
-import net.id.skewer.items.SkewerItems;
+import net.id.skewer.registry.SkewerRegistries;
 import net.minecraft.util.registry.Registry;
 
 public class Condiments {
-    public static final Registry<Condiment> CONDIMENT = FabricRegistryBuilder.createSimple(Condiment.class, Skewer.locate("condiment")).buildAndRegister();
 
-    public static final Spice EMPTY = register("empty", new Spice(null));
-    public static final Sauce AIOLI = register("aioli", new Sauce(SkewerFoodComponents.AIOLI, SkewerItems.AIOLI_DISH));
-    public static final Spice GARLIC = register("garlic", new Spice(SkewerFoodComponents.GARLIC));
+    public static final SimpleCondiment EMPTY = register("empty", new SimpleCondiment(SkewerFoodComponents.EMPTY));
+    public static final SimpleCondiment AIOLI = register("aioli", new SimpleCondiment(SkewerFoodComponents.AIOLI));
+    public static final SimpleCondiment GARLIC = register("garlic", new SimpleCondiment(SkewerFoodComponents.GARLIC));
 
     private static <V extends Condiment> V register(String name, V sauce){
-        return Registry.register(CONDIMENT, Skewer.locate(name), sauce);
+        return Registry.register(SkewerRegistries.CONDIMENT, Skewer.locate(name), sauce);
     }
 
     public static void init(){

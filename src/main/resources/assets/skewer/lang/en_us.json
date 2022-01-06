@@ -1,0 +1,5 @@
+{
+  "commands.skewer.add.addition_failure" : "Failed to add %1$s to the item.",
+  "commands.skewer.add.player_failure" : "Command must be used by a player.",
+  "commands.skewer.add.item_failure" : "The item you wish to add %1$s to is not a valid multi-food-item."
+}
