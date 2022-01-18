@@ -21,7 +21,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.id.skewer.Skewer"
+      "net.immortaldevs.skewer.Skewer"
     ]
   },
   "mixins": [
