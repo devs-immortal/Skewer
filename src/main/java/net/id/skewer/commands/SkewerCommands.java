@@ -7,7 +7,6 @@ import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.function.Consumer;
 
-// TODO rework
 public class SkewerCommands {
 
     public static void init() {

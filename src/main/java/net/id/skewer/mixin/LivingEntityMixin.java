@@ -2,7 +2,7 @@ package net.id.skewer.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import net.id.skewer.items.FoodComponentExt;
-import net.id.skewer.items.SkewerItem;
+import net.id.skewer.items.MultiFoodItem;
 import net.id.skewer.sar.FoodModifier;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -32,7 +32,7 @@ public abstract class LivingEntityMixin {
                     target = "Lnet/minecraft/item/FoodComponent;isSnack()Z"),
             locals = LocalCapture.CAPTURE_FAILHARD)
     private void shouldSpawnConsumptionEffects(CallbackInfoReturnable<Boolean> cir, int i, FoodComponent foodComponent) {
-        if (this.activeItemStack.getItem() instanceof SkewerItem) {
+        if (this.activeItemStack.getItem() instanceof MultiFoodItem) {
             ((FoodComponentExt) foodComponent).skewer$init(this.activeItemStack);
         }
     }
@@ -43,7 +43,7 @@ public abstract class LivingEntityMixin {
                     ordinal = 0),
             locals = LocalCapture.CAPTURE_FAILHARD)
     private void applyFoodEffects(ItemStack stack, World world, LivingEntity targetEntity, CallbackInfo ci, Item item, List<Pair<StatusEffectInstance, Float>> list) {
-        if (item instanceof SkewerItem) {
+        if (item instanceof MultiFoodItem) {
             acceptModifier(stack, FoodModifier.class, foodModifier ->
                     foodModifier.apply(foodComponent -> list.addAll(foodComponent.getStatusEffects())));
         }

@@ -28,7 +28,7 @@ import static net.id.skewer.Skewer.MOD_ID;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-// TODO remove
+// TODO rewrite or remove
 public class AddToSkewerCommand {
 
     public static final SkewerableSuggester SKEWERABLE_SUGGESTER = new SkewerableSuggester();
@@ -46,6 +46,7 @@ public class AddToSkewerCommand {
         );
     }
 
+    // todo rewrite
     private static int addToSkewer(ServerCommandSource source, Identifier id, int amount) {
         PlayerEntity player;
         try {
@@ -64,9 +65,9 @@ public class AddToSkewerCommand {
         Item food = Registry.ITEM.get(id);
         Condiment condiment = SkewerRegistries.CONDIMENT.get(id);
 
-        if (!MultiFoodItem.add(stack, food, amount) && !MultiFoodItem.add(stack, condiment, amount)) {
-            source.sendError(new TranslatableText("commands.skewer.add.addition_failure", id));
-        }
+//        if (!MultiFoodItem.add(stack, food, amount) && !MultiFoodItem.add(stack, condiment, amount)) {
+//            source.sendError(new TranslatableText("commands.skewer.add.addition_failure", id));
+//        }
         // Success message
         return 1;
     }

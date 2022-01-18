@@ -1,7 +1,7 @@
 package net.id.skewer.mixin;
 
+import net.id.skewer.items.MultiFoodItem;
 import net.immortaldevs.sar.base.ItemStackExt;
-import net.id.skewer.items.SkewerItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,8 +19,8 @@ public abstract class ItemStackMixin implements ItemStackExt {
             at = @At("HEAD"),
             cancellable = true)
     private void isFood(CallbackInfoReturnable<Boolean> cir) {
-        if (this.getItem() instanceof SkewerItem) {
-            cir.setReturnValue(SkewerItem.hasFood((ItemStack) (Object) this));
+        if (this.getItem() instanceof MultiFoodItem) {
+            cir.setReturnValue(MultiFoodItem.hasFood((ItemStack) (Object) this));
         }
     }
 }

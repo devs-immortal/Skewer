@@ -1,7 +1,7 @@
 package net.id.skewer.mixin;
 
 import net.id.skewer.items.FoodComponentExt;
-import net.id.skewer.items.SkewerItem;
+import net.id.skewer.items.MultiFoodItem;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
@@ -19,7 +19,7 @@ public abstract class HungerManagerMixin {
                     target = "Lnet/minecraft/item/FoodComponent;getHunger()I"),
             locals = LocalCapture.CAPTURE_FAILHARD)
     private void eat(Item item, ItemStack stack, CallbackInfo ci, FoodComponent foodComponent) {
-        if (item instanceof SkewerItem) {
+        if (item instanceof MultiFoodItem) {
             ((FoodComponentExt) foodComponent).skewer$init(stack);
         }
     }

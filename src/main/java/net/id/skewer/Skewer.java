@@ -23,7 +23,7 @@ public class Skewer implements ModInitializer, ClientModInitializer {
 		Condiments.init();
 		SkewerComponents.init();
 		SkewerItems.init();
-		SkewerCommands.init();
+		// SkewerCommands.init();
 
 
 		// These are probably not necessary, and they don't work anyway
