@@ -11,9 +11,9 @@ public interface FoodModifier extends Modifier {
 
     @Override
     default void register(ModifierMap modifierMap) {
-        modifierMap.append(FoodModifier.class, this, foodModifier -> consumer -> {
-            foodModifier.apply(consumer);
-            this.apply(consumer);
+        modifierMap.merge(FoodModifier.class, this, (a, b) -> consumer -> {
+            a.apply(consumer);
+            b.apply(consumer);
         });
     }
 }

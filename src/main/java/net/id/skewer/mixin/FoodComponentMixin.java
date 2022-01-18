@@ -2,7 +2,7 @@ package net.id.skewer.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import net.id.skewer.items.SkewerFoodComponents;
-import net.immortaldevs.sar.base.Util;
+import net.immortaldevs.sar.base.ModifierUtils;
 import net.id.skewer.items.FoodComponentExt;
 import net.id.skewer.sar.FoodModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -29,7 +29,7 @@ public abstract class FoodComponentMixin implements FoodComponentExt {
 
             @Override
             public void skewer$init(ItemStack stack) {
-                Util.acceptModifier(stack, FoodModifier.class, foodModifier ->
+                ModifierUtils.acceptModifier(stack, FoodModifier.class, foodModifier ->
                         foodModifier.apply(this.children::add));
             }
 
