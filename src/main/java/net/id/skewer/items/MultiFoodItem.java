@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+// TODO rework
 public abstract class MultiFoodItem extends Item {
 
     public MultiFoodItem(Settings settings) {

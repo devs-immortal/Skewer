@@ -1,0 +1,6 @@
+{
+  "parent": "sar:item/dynamic",
+  "textures": {
+    "layer0": "minecraft:item/stick"
+  }
+}

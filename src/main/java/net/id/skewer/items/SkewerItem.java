@@ -1,34 +1,58 @@
 package net.id.skewer.items;
 
+import net.immortaldevs.sar.base.ItemStackExt;
+import net.immortaldevs.sar.base.RootComponentData;
+import net.id.skewer.sar.FoodModifier;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
-import net.id.skewer.tag.CondimentTags;
-import net.id.skewer.tag.SkewerItemTags;
-import net.id.skewer.condiments.Condiment;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class SkewerItem extends MultiFoodItem {
+public class SkewerItem extends Item {
     public SkewerItem(Settings settings) {
         super(settings);
     }
 
-    @Override
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user){
-        if (user instanceof PlayerEntity player && !player.getAbilities().creativeMode) {
-            player.giveItemStack(SkewerItems.SKEWER.getDefaultStack());
-        }
-        return super.finishUsing(stack, world, user);
+    public static boolean hasFood(ItemStack stack) {
+        RootComponentData rootComponentData = ((ItemStackExt) (Object) stack).sar$getComponentRoot();
+        return rootComponentData != null
+                && rootComponentData.modifierMap.contains(FoodModifier.class);
     }
 
     @Override
-    public boolean canBeAdded(Item item){
-        return SkewerItemTags.SKEWERABLE.contains(item);
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
+        if (hasFood(stack)) return super.use(world, user, hand);
+        return TypedActionResult.pass(stack);
     }
 
     @Override
-    protected boolean canBeAdded(Condiment condiment) {
-        return CondimentTags.SKEWERABLE.contains(condiment);
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        ItemStack result = super.finishUsing(stack, world, user);
+        return user instanceof PlayerEntity playerEntity && playerEntity.getAbilities().creativeMode
+                ? result : Items.STICK.getDefaultStack();
+    }
+
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return hasFood(stack) ? super.getUseAction(stack) : UseAction.NONE;
+    }
+
+    @Override
+    public int getMaxUseTime(ItemStack stack) {
+        return 48;
+    }
+
+    @Nullable
+    @Override
+    public FoodComponent getFoodComponent() {
+        return SkewerFoodComponents.SUPPLIER.get();
     }
 }

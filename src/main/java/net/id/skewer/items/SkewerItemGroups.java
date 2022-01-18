@@ -2,6 +2,7 @@ package net.id.skewer.items;
 
 import net.id.skewer.Skewer;
 import net.id.skewer.condiments.Condiments;
+import net.immortaldevs.sar.base.ItemStackExt;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -13,10 +14,10 @@ public class SkewerItemGroups {
             Skewer.locate("foods"),
             () -> {
                 ItemStack stack = new ItemStack(SkewerItems.SKEWER);
-                SkewerItem.forceAdd(stack,
+                /* TODO SkewerItem.forceAdd(stack,
                         Items.COOKED_BEEF, Items.COOKED_BEEF,
                         Items.COOKED_CHICKEN, Items.COOKED_CHICKEN,
-                        Condiments.AIOLI);
+                        Condiments.AIOLI);*/
                 return stack;
             });
 

@@ -28,6 +28,7 @@ import static net.id.skewer.Skewer.MOD_ID;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+// TODO remove
 public class AddToSkewerCommand {
 
     public static final SkewerableSuggester SKEWERABLE_SUGGESTER = new SkewerableSuggester();

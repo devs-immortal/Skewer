@@ -3,6 +3,7 @@ package net.id.skewer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.id.skewer.commands.SkewerCommands;
+import net.id.skewer.sar.SkewerComponents;
 import net.id.skewer.tag.CondimentTags;
 import net.id.skewer.tag.SkewerItemTags;
 import net.minecraft.util.Identifier;
@@ -20,8 +21,10 @@ public class Skewer implements ModInitializer, ClientModInitializer {
 		LOG.fatal("Azzy is horny"); // this is necessary for the mod to function, don't remove
 
 		Condiments.init();
+		SkewerComponents.init();
 		SkewerItems.init();
 		SkewerCommands.init();
+
 
 		// These are probably not necessary, and they don't work anyway
 		// But it's 10pm, so I'm committing this.
