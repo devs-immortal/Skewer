@@ -4,13 +4,9 @@
   "package": "net.immortaldevs.skewer.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "FoodComponentMixin",
-    "HungerManagerMixin",
-    "ItemStackMixin",
-    "LivingEntityMixin"
+    "ItemStackMixin"
   ],
   "client": [
-    "ExampleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
