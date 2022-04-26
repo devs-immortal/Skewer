@@ -19,7 +19,7 @@ public final class Skewer implements ModInitializer {
 		SkewerComponents.init();
 	}
 
-	public static Identifier id(String path) {
+	public static Identifier locate(String path) {
 		return new Identifier(SKEWER, path);
 	}
 }

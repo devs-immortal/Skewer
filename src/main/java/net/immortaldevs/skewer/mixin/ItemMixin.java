@@ -5,7 +5,7 @@ import net.immortaldevs.sar.api.SkeletalComponentData;
 import net.immortaldevs.skewer.component.KebabComponent;
 import net.immortaldevs.skewer.component.SkewerComponents;
 import net.immortaldevs.skewer.component.SkeweredFoodComponents;
-import net.immortaldevs.skewer.item.KebabItem;
+import net.immortaldevs.skewer.item.SkewerItem;
 import net.immortaldevs.skewer.item.SkewerItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -36,17 +36,17 @@ public class ItemMixin {
         if (component == null) return;
 
         if (cursorStackReference.get().getItem() == Items.STICK) {
-            cursorStackReference.set(new ItemStack(SkewerItems.KEBAB,
+            cursorStackReference.set(new ItemStack(SkewerItems.WOODEN_SKEWER,
                     cursorStackReference.get().getCount()));
         }
 
-        if (cursorStackReference.get().getItem() == SkewerItems.KEBAB) {
+        if (cursorStackReference.get().getItem() instanceof SkewerItem skewer) {
             SkeletalComponentData kebab = cursorStackReference.get().getComponent("kebab");
             if (kebab == null) {
                 kebab = cursorStackReference.get().getOrCreateComponent("kebab", SkewerComponents.KEBAB);
                 kebab.getOrCreateNbt().putDouble("posY", -0.0625);
             }
-            if (kebab.getChildren("foods").size() < KebabItem.MAX_SKEWER_CAPACITY) {
+            if (kebab.getChildren("foods").size() < skewer.maxCapacity) {
                 KebabComponent.addFood(kebab, component);
                 if (!player.isCreative()) stack.decrement(1);
                 cir.setReturnValue(true);

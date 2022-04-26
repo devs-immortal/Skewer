@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.Objects;
 
-import static net.immortaldevs.skewer.Skewer.id;
+import static net.immortaldevs.skewer.Skewer.locate;
 
 public class SkeweredFoodComponents {
     private static final Reference2ReferenceMap<Item, Component> FOODS =
@@ -58,7 +58,7 @@ public class SkeweredFoodComponents {
         Objects.requireNonNull(base.getFoodComponent());
         Objects.requireNonNull(FOODS);
 
-        SkeweredFoodComponent component = Registry.register(SarRegistries.COMPONENT, id(id), new SkeweredFoodComponent(base.getFoodComponent()));
+        SkeweredFoodComponent component = Registry.register(SarRegistries.COMPONENT, locate(id), new SkeweredFoodComponent(base.getFoodComponent()));
         FOODS.put(base, component);
 
         return component;

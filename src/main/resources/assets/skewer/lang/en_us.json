@@ -1,3 +1,5 @@
 {
-  "item.skewer.kebab" : "Kebab"
+  "item.skewer.wooden_skewer" : "Skewer",
+  "item.skewer.bamboo_skewer" : "Bamboo Skewer",
+  "item.skewer.metal_skewer" : "Metal Skewer"
 }

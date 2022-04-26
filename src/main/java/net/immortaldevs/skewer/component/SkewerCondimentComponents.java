@@ -11,7 +11,7 @@ import net.immortaldevs.skewer.item.SkewerItems;
 import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
 
-import static net.immortaldevs.skewer.Skewer.id;
+import static net.immortaldevs.skewer.Skewer.locate;
 
 public class SkewerCondimentComponents {
     private static final Reference2ReferenceMap<Item, Component> CONDIMENTS =
@@ -27,7 +27,7 @@ public class SkewerCondimentComponents {
     }
 
     private static <T extends Component> T addCondiment(String id, Item base, T component) {
-        Registry.register(SarRegistries.COMPONENT, id(id), component);
+        Registry.register(SarRegistries.COMPONENT, locate(id), component);
         CONDIMENTS.put(base, component);
 
         return component;

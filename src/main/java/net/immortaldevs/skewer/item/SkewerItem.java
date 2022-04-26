@@ -14,11 +14,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class KebabItem extends Item {
-    public static final int MAX_SKEWER_CAPACITY = 6;
+public class SkewerItem extends Item {
+    public final int maxCapacity;
 
-    public KebabItem(Settings settings) {
+    public SkewerItem(Settings settings, int maxCapacity) {
         super(settings);
+        this.maxCapacity = maxCapacity;
     }
 
     @Override
