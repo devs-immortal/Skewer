@@ -8,8 +8,8 @@ import static net.immortaldevs.skewer.Skewer.locate;
 
 public final class SkewerItems {
     public static final SkewerItem WOODEN_SKEWER = add("wooden_skewer", new SkewerItem(new Settings().food(SkewerFoodComponents.KEBAB), 4));
-    public static final SkewerItem BAMBOO_SKEWER = add("bamboo_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 6));
-    public static final SkewerItem METAL_SKEWER = add("metal_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 10));
+    public static final SkewerItem METAL_SKEWER = add("metal_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 6));
+    public static final SkewerItem BAMBOO_SKEWER = add("bamboo_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 10));
 
     public static final Item GARLIC = add("garlic", new Item(new Settings().group(ItemGroup.FOOD).food(SkewerFoodComponents.GARLIC)));
 
