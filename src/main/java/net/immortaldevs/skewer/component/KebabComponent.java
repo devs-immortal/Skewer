@@ -17,6 +17,6 @@ public class KebabComponent extends Component {
         Children children = kebab.getChildren("foods");
         int i = children.size();
         children.add(food);
-        children.get(i).getOrCreateNbt().putDouble("offset", 0.0625 * i);
+        children.get(i).getOrCreateNbt().putDouble("offset", 0.125 * i);
     }
 }

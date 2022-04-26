@@ -15,6 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class KebabItem extends Item {
+    public static final int MAX_SKEWER_CAPACITY = 6;
+
     public KebabItem(Settings settings) {
         super(settings);
     }

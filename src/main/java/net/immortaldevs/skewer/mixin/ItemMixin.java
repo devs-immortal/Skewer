@@ -5,6 +5,7 @@ import net.immortaldevs.sar.api.SkeletalComponentData;
 import net.immortaldevs.skewer.component.KebabComponent;
 import net.immortaldevs.skewer.component.SkewerComponents;
 import net.immortaldevs.skewer.component.food.SkewerableFoods;
+import net.immortaldevs.skewer.item.KebabItem;
 import net.immortaldevs.skewer.item.SkewerItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
@@ -45,7 +46,7 @@ public class ItemMixin {
                 kebab = cursorStackReference.get().getOrCreateComponent("kebab", SkewerComponents.KEBAB);
                 kebab.getOrCreateNbt().putDouble("posY", -0.0625);
             }
-            if (kebab.getChildren("foods").size() < 6) {
+            if (kebab.getChildren("foods").size() < KebabItem.MAX_SKEWER_CAPACITY) {
                 KebabComponent.addFood(kebab, component);
                 if (!player.isCreative()) stack.decrement(1);
                 cir.setReturnValue(true);
