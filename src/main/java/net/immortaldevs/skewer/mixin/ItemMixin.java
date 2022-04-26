@@ -4,7 +4,7 @@ import net.immortaldevs.sar.api.Component;
 import net.immortaldevs.sar.api.SkeletalComponentData;
 import net.immortaldevs.skewer.component.KebabComponent;
 import net.immortaldevs.skewer.component.SkewerComponents;
-import net.immortaldevs.skewer.component.food.SkewerableFoods;
+import net.immortaldevs.skewer.component.SkeweredFoodComponents;
 import net.immortaldevs.skewer.item.KebabItem;
 import net.immortaldevs.skewer.item.SkewerItems;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +32,7 @@ public class ItemMixin {
     @Inject(method = "onClicked", at = @At("RETURN"), cancellable = true)
     public void onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference, CallbackInfoReturnable<Boolean> cir) {
         if (cursorStackReference.get().getCount() > 1) return;
-        Component component = SkewerableFoods.get((Item) (Object) this);
+        Component component = SkeweredFoodComponents.fromItem((Item) (Object) this);
         if (component == null) return;
 
         if (cursorStackReference.get().getItem() == Items.STICK) {

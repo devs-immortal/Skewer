@@ -1,4 +1,4 @@
-package net.immortaldevs.skewer.component.food;
+package net.immortaldevs.skewer.component;
 
 import com.mojang.datafixers.util.Pair;
 import net.immortaldevs.sar.api.Component;
