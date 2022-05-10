@@ -4,6 +4,7 @@ import net.immortaldevs.sar.api.Component;
 import net.immortaldevs.sar.api.SkeletalComponentData;
 import net.immortaldevs.skewer.component.KebabComponent;
 import net.immortaldevs.skewer.component.SkewerComponents;
+import net.immortaldevs.skewer.component.SkewerCondimentComponents;
 import net.immortaldevs.skewer.component.SkeweredFoodComponents;
 import net.immortaldevs.skewer.item.SkewerItem;
 import net.immortaldevs.skewer.item.SkewerItems;
@@ -15,6 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -32,8 +34,45 @@ public class ItemMixin {
     @Inject(method = "onClicked", at = @At("RETURN"), cancellable = true)
     public void onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference, CallbackInfoReturnable<Boolean> cir) {
         if (cursorStackReference.get().getCount() > 1) return;
+        cir.setReturnValue(
+                cir.getReturnValue()
+                || skewer$tryAddFoodToSkewer(stack, cursorStackReference, player)
+                || skewer$tryAddCondimentToSkewer(stack, cursorStackReference, player)
+        );
+    }
+
+    // Pretty messy. Some duplicated code too.
+
+    @Unique
+    private boolean skewer$tryAddFoodToSkewer(ItemStack stack, StackReference cursorStackReference, PlayerEntity player) {
         Component component = SkeweredFoodComponents.fromItem((Item) (Object) this);
-        if (component == null) return;
+        if (component == null) return false;
+
+        if (cursorStackReference.get().getItem() == Items.STICK) {
+            cursorStackReference.set(new ItemStack(SkewerItems.WOODEN_SKEWER,
+                    cursorStackReference.get().getCount()));
+        }
+
+        if (cursorStackReference.get().getItem() instanceof SkewerItem skewer) {
+            // Move to SkewerItem or something
+            SkeletalComponentData kebab = cursorStackReference.get().getComponent("kebab");
+            if (kebab == null) {
+                kebab = cursorStackReference.get().getOrCreateComponent("kebab", SkewerComponents.KEBAB);
+                kebab.getOrCreateNbt().putDouble("posY", -0.0625);
+            }
+            if (kebab.getChildren("foods").size() < skewer.maxCapacity) {
+                KebabComponent.addFood(kebab, component);
+                if (!player.isCreative()) stack.decrement(1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Unique
+    private boolean skewer$tryAddCondimentToSkewer(ItemStack stack, StackReference cursorStackReference, PlayerEntity player) {
+        Component component = SkewerCondimentComponents.fromItem((Item) (Object) this);
+        if (component == null) return false;
 
         if (cursorStackReference.get().getItem() == Items.STICK) {
             cursorStackReference.set(new ItemStack(SkewerItems.WOODEN_SKEWER,
@@ -46,11 +85,15 @@ public class ItemMixin {
                 kebab = cursorStackReference.get().getOrCreateComponent("kebab", SkewerComponents.KEBAB);
                 kebab.getOrCreateNbt().putDouble("posY", -0.0625);
             }
-            if (kebab.getChildren("foods").size() < skewer.maxCapacity) {
-                KebabComponent.addFood(kebab, component);
+            if (kebab.getChildren("condiments").size() < skewer.maxCapacity) {
+                KebabComponent.addCondiment(kebab, component);
+                /*
+                add "turn this into a bowl" here
+                 */
                 if (!player.isCreative()) stack.decrement(1);
-                cir.setReturnValue(true);
+                return true;
             }
         }
+        return false;
     }
 }

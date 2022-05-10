@@ -19,4 +19,11 @@ public class KebabComponent extends Component {
         children.add(food);
         children.get(i).getOrCreateNbt().putDouble("offset", 0.125 * i);
     }
+
+    public static void addCondiment(SkeletalComponentData kebab, Component condiment) {
+        Children children = kebab.getChildren("condiments");
+        int i = children.size();
+        children.add(condiment);
+        children.get(i).getOrCreateNbt().putDouble("offset", 0.0625 * i);
+    }
 }

@@ -43,5 +43,10 @@ public class SkewerItem extends Item {
         for (int i = 0; i < foods.size(); i++) {
             tooltip.add(new LiteralText(foods.get(i).getComponent().getId().toString()));
         }
+
+        SkeletalComponentData.Children condiments = kebab.getChildren("condiments");
+        for (int i = 0; i < condiments.size(); i++) {
+            tooltip.add(new LiteralText(condiments.get(i).getComponent().getId().toString()));
+        }
     }
 }
