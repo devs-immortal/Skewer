@@ -6,9 +6,13 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
 public final class SkewerItemGroups {
+
+    public static final ItemGroup COOKING = FabricItemGroupBuilder.build(
+            Skewer.locate("cooking"),
+            () -> new ItemStack(SkewerItems.COPPER_SKEWER));
     public static final ItemGroup FOODS = FabricItemGroupBuilder.build(
             Skewer.locate("foods"),
-            () -> new ItemStack(SkewerItems.BAMBOO_SKEWER));
+            () -> new ItemStack(SkewerItems.WOODEN_SKEWER));
 
     public static final ItemGroup CONDIMENTS = FabricItemGroupBuilder.build(
             Skewer.locate("condiments"),

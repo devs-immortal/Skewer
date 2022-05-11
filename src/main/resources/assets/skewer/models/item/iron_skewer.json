@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "skewer:item/wooden_skewer"
+    "layer0": "skewer:item/iron_skewer"
   }
 }
