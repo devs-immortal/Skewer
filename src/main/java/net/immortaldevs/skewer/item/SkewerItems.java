@@ -1,5 +1,6 @@
 package net.immortaldevs.skewer.item;
 
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.*;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.util.registry.Registry;
@@ -7,10 +8,15 @@ import net.minecraft.util.registry.Registry;
 import static net.immortaldevs.skewer.Skewer.locate;
 
 public final class SkewerItems {
-    public static final SkewerItem WOODEN_SKEWER = add("wooden_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 3));
-    public static final SkewerItem COPPER_SKEWER = add("copper_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 5));
-    public static final SkewerItem IRON_SKEWER = add("iron_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 5));
-    public static final SkewerItem BAMBOO_SKEWER = add("bamboo_skewer", new SkewerItem(new Settings().group(SkewerItemGroups.FOODS).food(SkewerFoodComponents.KEBAB), 7));
+
+    public static FabricItemSettings skewerSettings(int maxCount) {
+        return new FabricItemSettings().food(SkewerFoodComponents.KEBAB).group(SkewerItemGroups.FOODS).maxCount(maxCount);
+    }
+
+    public static final SkewerItem WOODEN_SKEWER = add("wooden_skewer", new SkewerItem(skewerSettings(16), 3));
+    public static final SkewerItem COPPER_SKEWER = add("copper_skewer", new SkewerItem(skewerSettings(16), 3));
+    public static final SkewerItem IRON_SKEWER = add("iron_skewer", new SkewerItem(skewerSettings(12), 4));
+    public static final SkewerItem BAMBOO_SKEWER = add("bamboo_skewer", new SkewerItem(skewerSettings(12), 6));
 
     public static final Item GARLIC = add("garlic", new Item(new Settings().group(ItemGroup.FOOD).food(SkewerFoodComponents.GARLIC)));
 

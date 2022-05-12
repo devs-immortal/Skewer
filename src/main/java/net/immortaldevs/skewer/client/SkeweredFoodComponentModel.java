@@ -27,7 +27,7 @@ public class SkeweredFoodComponentModel extends LoadedModelComponentModel {
             NbtCompound nbt = data.getNbt();
             if (nbt == null) break translate;
             double offset = nbt.getDouble("offset");
-            matrices.translate(offset - 0.125, offset - 0.1875, 0.0);
+            matrices.translate(offset - (3.75 / 16.0), offset - (3.75 / 16.0), 0.0);
         }
 
         super.itemRender(data, vertexConsumers, stack, matrices, renderMode, light, overlay);

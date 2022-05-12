@@ -25,11 +25,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemMixin {
 
     /**
-     * Allows items to be put onto sticks and skewers when clicked with a stick or skewer
+     * Allows items to be put onto skewers when clicked with a skewer
      * in the inventory
      * @param stack The ItemStack of this item (the food, presumably)
-     * @param otherStack The ItemStack of the skewer / stick
-     * @param cursorStackReference Also the skewer / stick, but mutable. 🤷‍♀️
+     * @param otherStack The ItemStack of the skewer
+     * @param cursorStackReference Also the skewer, but mutable. 🤷‍♀️
      */
     @Inject(method = "onClicked", at = @At("RETURN"), cancellable = true)
     public void onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference, CallbackInfoReturnable<Boolean> cir) {
@@ -47,11 +47,6 @@ public class ItemMixin {
     private boolean skewer$tryAddFoodToSkewer(ItemStack stack, StackReference cursorStackReference, PlayerEntity player) {
         Component component = SkeweredFoodComponents.fromItem((Item) (Object) this);
         if (component == null) return false;
-
-        if (cursorStackReference.get().getItem() == Items.STICK) {
-            cursorStackReference.set(new ItemStack(SkewerItems.WOODEN_SKEWER,
-                    cursorStackReference.get().getCount()));
-        }
 
         if (cursorStackReference.get().getItem() instanceof SkewerItem skewer) {
             // Move to SkewerItem or something
@@ -73,11 +68,6 @@ public class ItemMixin {
     private boolean skewer$tryAddCondimentToSkewer(ItemStack stack, StackReference cursorStackReference, PlayerEntity player) {
         Component component = SkewerCondimentComponents.fromItem((Item) (Object) this);
         if (component == null) return false;
-
-        if (cursorStackReference.get().getItem() == Items.STICK) {
-            cursorStackReference.set(new ItemStack(SkewerItems.WOODEN_SKEWER,
-                    cursorStackReference.get().getCount()));
-        }
 
         if (cursorStackReference.get().getItem() instanceof SkewerItem skewer) {
             SkeletalComponentData kebab = cursorStackReference.get().getComponent("kebab");

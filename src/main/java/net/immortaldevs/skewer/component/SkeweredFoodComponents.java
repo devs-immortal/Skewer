@@ -18,11 +18,8 @@ public class SkeweredFoodComponents {
 
     public static final SkeweredFoodComponent SKEWERED_APPLE = add("skewered_apple", Items.APPLE);
     public static final SkeweredFoodComponent SKEWERED_BAKED_POTATO = add("skewered_baked_potato", Items.BAKED_POTATO);
-    public static final SkeweredFoodComponent SKEWERED_BEEF = add("skewered_beef", Items.BEEF);
     public static final SkeweredFoodComponent SKEWERED_CARROT = add("skewered_carrot", Items.CARROT);
-    public static final SkeweredFoodComponent SKEWERED_CHICKEN = add("skewered_chicken", Items.CHICKEN);
     public static final SkeweredFoodComponent SKEWERED_CHORUS_FRUIT = add("skewered_chorus_fruit", Items.CHORUS_FRUIT);
-    public static final SkeweredFoodComponent SKEWERED_COD = add("skewered_cod", Items.COD);
     public static final SkeweredFoodComponent SKEWERED_COOKED_BEEF = add("skewered_cooked_beef", Items.COOKED_BEEF);
     public static final SkeweredFoodComponent SKEWERED_COOKED_CHICKEN = add("skewered_cooked_chicken", Items.COOKED_CHICKEN);
     public static final SkeweredFoodComponent SKEWERED_COOKED_COD = add("skewered_cooked_cod", Items.COOKED_COD);
@@ -34,18 +31,12 @@ public class SkeweredFoodComponents {
     public static final SkeweredFoodComponent SKEWERED_GOLDEN_APPLE = add("skewered_golden_apple", Items.GOLDEN_APPLE);
     public static final SkeweredFoodComponent SKEWERED_GOLDEN_CARROT = add("skewered_golden_carrot", Items.GOLDEN_CARROT);
     public static final SkeweredFoodComponent SKEWERED_MELON = add("skewered_melon", Items.MELON_SLICE);
-    public static final SkeweredFoodComponent SKEWERED_MUTTON = add("skewered_mutton", Items.MUTTON);
     public static final SkeweredFoodComponent SKEWERED_POISONOUS_POTATO = add("skewered_poisonous_potato", Items.POISONOUS_POTATO);
-    public static final SkeweredFoodComponent SKEWERED_PORKCHOP = add("skewered_porkchop", Items.PORKCHOP);
-    public static final SkeweredFoodComponent SKEWERED_POTATO = add("skewered_potato", Items.POTATO);
     public static final SkeweredFoodComponent SKEWERED_PUFFERFISH = add("skewered_pufferfish", Items.PUFFERFISH);
-    public static final SkeweredFoodComponent SKEWERED_RABBIT = add("skewered_rabbit", Items.RABBIT);
     public static final SkeweredFoodComponent SKEWERED_ROTTEN_FLESH = add("skewered_rotten_flesh", Items.ROTTEN_FLESH);
-    public static final SkeweredFoodComponent SKEWERED_SALMON = add("skewered_salmon", Items.SALMON);
     public static final SkeweredFoodComponent SKEWERED_SPIDER_EYE = add("skewered_spider_eye", Items.SPIDER_EYE);
     public static final SkeweredFoodComponent SKEWERED_SWEET_BERRY = add("skewered_sweet_berry", Items.SWEET_BERRIES);
     public static final SkeweredFoodComponent SKEWERED_GLOW_BERRY = add("skewered_glow_berry", Items.GLOW_BERRIES);
-    public static final SkeweredFoodComponent SKEWERED_TROPICAL_FISH = add("skewered_tropical_fish", Items.TROPICAL_FISH);
 
     public static Component fromItem(Item item) {
         return FOODS.get(item);
