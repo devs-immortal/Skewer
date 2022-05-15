@@ -21,11 +21,18 @@ repositories {
 		url = "https://maven.shedaniel.me/"
 	}
 	maven {
+		name = "Ladysnake Libs"
+		url = "https://ladysnake.jfrog.io/artifactory/mods"
+	}
+	maven {
 		url = "https://jitpack.io"
 	}
 	maven {
 		name "tterrag maven"
 		url "https://maven.tterrag.com/"
+	}
+	maven {
+		url = "https://jitpack.io"
 	}
 }
 
@@ -35,7 +42,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fapi_version}"
-//	modImplementation include("com.github.devs-immortal:Incubus-Core:${project.incubus_core_version}")
+	modImplementation include("com.github.devs-immortal:Incubus-Core:${project.incubus_core_version}")
 	modImplementation include("com.github.devs-immortal:Some-Assembly-Required:${project.sar_version}")
 	modImplementation include("com.github.devs-immortal:Divine-Intervention:${project.divine_intervention_version}")
 

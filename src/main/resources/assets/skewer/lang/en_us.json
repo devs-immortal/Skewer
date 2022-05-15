@@ -1,6 +1,8 @@
 {
+  "block.skewer.prep_table": "Prep Table",
   "item.skewer.wooden_skewer" : "Skewer",
   "item.skewer.bamboo_skewer" : "Bamboo Skewer",
   "item.skewer.iron_skewer" : "Iron Skewer",
-  "item.skewer.copper_skewer" : "Copper Skewer"
+  "item.skewer.copper_skewer" : "Copper Skewer",
+  "item.skewer.full_skewer" : "Kebab"
 }

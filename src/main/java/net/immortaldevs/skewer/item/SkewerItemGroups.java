@@ -9,7 +9,7 @@ public final class SkewerItemGroups {
 
     public static final ItemGroup COOKING = FabricItemGroupBuilder.build(
             Skewer.locate("cooking"),
-            () -> new ItemStack(SkewerItems.COPPER_SKEWER));
+            () -> new ItemStack(SkewerItems.PREP_TABLE_ITEM));
     public static final ItemGroup FOODS = FabricItemGroupBuilder.build(
             Skewer.locate("foods"),
             () -> new ItemStack(SkewerItems.WOODEN_SKEWER));
