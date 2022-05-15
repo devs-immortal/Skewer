@@ -20,6 +20,7 @@ public class SkeweredFoodComponents {
     public static final SkeweredFoodComponent SKEWERED_BAKED_POTATO = add("skewered_baked_potato", Items.BAKED_POTATO);
     public static final SkeweredFoodComponent SKEWERED_CARROT = add("skewered_carrot", Items.CARROT);
     public static final SkeweredFoodComponent SKEWERED_CHORUS_FRUIT = add("skewered_chorus_fruit", Items.CHORUS_FRUIT);
+    public static final SkeweredFoodComponent SKEWERED_BEETROOT = add("skewered_beetroot", Items.BEETROOT);
     public static final SkeweredFoodComponent SKEWERED_COOKED_BEEF = add("skewered_cooked_beef", Items.COOKED_BEEF);
     public static final SkeweredFoodComponent SKEWERED_COOKED_CHICKEN = add("skewered_cooked_chicken", Items.COOKED_CHICKEN);
     public static final SkeweredFoodComponent SKEWERED_COOKED_COD = add("skewered_cooked_cod", Items.COOKED_COD);
@@ -32,11 +33,8 @@ public class SkeweredFoodComponents {
     public static final SkeweredFoodComponent SKEWERED_GOLDEN_CARROT = add("skewered_golden_carrot", Items.GOLDEN_CARROT);
     public static final SkeweredFoodComponent SKEWERED_MELON = add("skewered_melon", Items.MELON_SLICE);
     public static final SkeweredFoodComponent SKEWERED_POISONOUS_POTATO = add("skewered_poisonous_potato", Items.POISONOUS_POTATO);
-    public static final SkeweredFoodComponent SKEWERED_PUFFERFISH = add("skewered_pufferfish", Items.PUFFERFISH);
     public static final SkeweredFoodComponent SKEWERED_ROTTEN_FLESH = add("skewered_rotten_flesh", Items.ROTTEN_FLESH);
     public static final SkeweredFoodComponent SKEWERED_SPIDER_EYE = add("skewered_spider_eye", Items.SPIDER_EYE);
-    public static final SkeweredFoodComponent SKEWERED_SWEET_BERRY = add("skewered_sweet_berry", Items.SWEET_BERRIES);
-    public static final SkeweredFoodComponent SKEWERED_GLOW_BERRY = add("skewered_glow_berry", Items.GLOW_BERRIES);
 
     public static Component fromItem(Item item) {
         return FOODS.get(item);
@@ -49,7 +47,7 @@ public class SkeweredFoodComponents {
         Objects.requireNonNull(base.getFoodComponent());
         Objects.requireNonNull(FOODS);
 
-        SkeweredFoodComponent component = Registry.register(SarRegistries.COMPONENT, locate(id), new SkeweredFoodComponent(base.getFoodComponent()));
+        SkeweredFoodComponent component = Registry.register(SarRegistries.COMPONENT, locate(id), SkeweredFoodComponent.of(base.getFoodComponent()));
         FOODS.put(base, component);
 
         return component;

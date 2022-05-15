@@ -23,6 +23,10 @@ repositories {
 	maven {
 		url = "https://jitpack.io"
 	}
+	maven {
+		name "tterrag maven"
+		url "https://maven.tterrag.com/"
+	}
 }
 
 dependencies {
@@ -35,8 +39,8 @@ dependencies {
 	modImplementation include("com.github.devs-immortal:Some-Assembly-Required:${project.sar_version}")
 	modImplementation include("com.github.devs-immortal:Divine-Intervention:${project.divine_intervention_version}")
 
-//	modRuntimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
-//	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+	modRuntimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
 	annotationProcessor "com.github.devs-immortal:Divine-Intervention:${project.divine_intervention_version}"
 }

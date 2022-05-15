@@ -13,10 +13,10 @@ public final class SkewerItems {
         return new FabricItemSettings().food(SkewerFoodComponents.KEBAB).group(SkewerItemGroups.FOODS).maxCount(maxCount);
     }
 
-    public static final SkewerItem WOODEN_SKEWER = add("wooden_skewer", new SkewerItem(skewerSettings(16), 3));
-    public static final SkewerItem COPPER_SKEWER = add("copper_skewer", new SkewerItem(skewerSettings(16), 3));
-    public static final SkewerItem IRON_SKEWER = add("iron_skewer", new SkewerItem(skewerSettings(12), 4));
-    public static final SkewerItem BAMBOO_SKEWER = add("bamboo_skewer", new SkewerItem(skewerSettings(12), 6));
+    public static final SkewerItem WOODEN_SKEWER = add("wooden_skewer", new SkewerItem(skewerSettings(16), 3, true));
+    public static final SkewerItem COPPER_SKEWER = add("copper_skewer", new SkewerItem(skewerSettings(16), 3, false));
+    public static final SkewerItem IRON_SKEWER = add("iron_skewer", new SkewerItem(skewerSettings(12), 4, false));
+    public static final SkewerItem BAMBOO_SKEWER = add("bamboo_skewer", new SkewerItem(skewerSettings(12), 6, true));
 
     public static final Item GARLIC = add("garlic", new Item(new Settings().group(ItemGroup.FOOD).food(SkewerFoodComponents.GARLIC)));
 
