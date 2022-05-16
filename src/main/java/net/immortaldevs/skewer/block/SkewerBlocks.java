@@ -1,17 +1,16 @@
 package net.immortaldevs.skewer.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
 
+import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
 import static net.immortaldevs.skewer.Skewer.locate;
 
 public class SkewerBlocks {
 
-    public static final PrepTableBlock PREP_TABLE = add("prep_table", new PrepTableBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)));
-
+    public static final PrepTableBlock PREP_TABLE = add("prep_table", new PrepTableBlock(copyOf(Blocks.OAK_WOOD)));
+    public static final GarlicCropBlock GARLIC = add("garlic", new GarlicCropBlock(copyOf(Blocks.POTATOES)));
 
     public static void init() {
     }
