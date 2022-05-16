@@ -3,8 +3,11 @@ package net.immortaldevs.skewer.blockentity;
 import com.google.common.collect.ImmutableSet;
 import net.id.incubus_core.be.IncubusBaseBE;
 import net.id.incubus_core.util.InventoryWrapper;
+import net.immortaldevs.skewer.component.KebabComponent;
+import net.immortaldevs.skewer.component.SkewerComponents;
 import net.immortaldevs.skewer.component.SkeweredFoodComponent;
 import net.immortaldevs.skewer.component.SkeweredFoodComponents;
+import net.immortaldevs.skewer.item.SkewerItem;
 import net.immortaldevs.skewer.item.SkewerItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +23,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
@@ -43,7 +49,7 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
 
         var handItem = handStack.getItem();
         var random = world.getRandom();
-        SkeweredFoodComponent component = (SkeweredFoodComponent) SkeweredFoodComponents.fromItem(handItem);
+        SkeweredFoodComponent component = SkeweredFoodComponents.fromItem(handItem);
 
         // Check if the player is holding an item used in building dynamic foods.
         if(VALID_BODIES.contains(handItem)) {
@@ -71,6 +77,17 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
             }
         }
 
+        // Is the player holding a knife, perchance? time to makea some kebabbe
+        else if(handItem == SkewerItems.KNIFE) {
+            if(body.getItem() instanceof SkewerItem && !isIngredientsEmpty() && output.isEmpty())
+                assembleKebab();
+
+            world.playSound(null, pos, SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS,  random.nextFloat() / 4F + 0.1F, 0.4F + (random.nextFloat() / 2F));
+            world.playSound(null, pos, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.BLOCKS,  random.nextFloat() / 3F + 0.2F, 0.85F + (random.nextFloat() / 2F));
+            world.playSound(null, pos, SoundEvents.BLOCK_WOODEN_BUTTON_CLICK_ON, SoundCategory.BLOCKS, random.nextFloat() / 3F + 0.125F, 0.25F + (random.nextFloat() / 3F));
+            return swingAndSync();
+        }
+
         // If there is nothing else to do, try to extract something from the table.
         else if(player.isSneaking()) {
             if(player.getInventory().insertStack(extractIngredient())) {
@@ -79,21 +96,100 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
             }
         }
         else if(handStack == ItemStack.EMPTY) {
-            player.setStackInHand(hand, body);
-            body = ItemStack.EMPTY;
-            return swingAndSync();
+            if(!output.isEmpty()) {
+                player.setStackInHand(hand, output);
+                output = ItemStack.EMPTY;
+                return swingAndSync();
+            }
+            else if(!body.isEmpty()) {
+                player.setStackInHand(hand, body);
+                body = ItemStack.EMPTY;
+                return swingAndSync();
+            }
         }
 
         return ActionResult.PASS;
     }
 
+    /**
+     * We makea the kebabbe
+     */
     private void assembleKebab() {
 
+        if(body.isEmpty())
+            return;
+
+        if(isIngredientsEmpty())
+            return;
+
+        SkewerItem skewer = (SkewerItem) body.getItem();
+        int skewerCapacity = skewer.maxCapacity;
+        int componentFill = 0;
+        var components = new ArrayList<SkeweredFoodComponent>();
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            var ingredient = ingredients.get(i);
+
+            if(componentFill >= skewerCapacity)
+                break;
+
+            if(ingredient.isEmpty())
+               continue;
+
+            var component = SkeweredFoodComponents.fromItem(ingredient.getItem());
+            componentFill += component.size;
+            for (int slots = 0; slots < component.size; slots++) {
+                components.add(SkeweredFoodComponents.fromItem(ingredient.getItem()));
+            }
+            ingredients.set(i, ItemStack.EMPTY);
+        }
+
+        float kebabOutput = 0;
+        float kebabMultiplier = 1;
+        List<Float> multipliers = new ArrayList<>();
+        Set<SkeweredFoodComponent> usedComponents = new HashSet<>();
+
+        for (SkeweredFoodComponent component : components) {
+            kebabOutput += Math.max(0.5F, component.getHunger() / (component.getSaturationModifier() * 4) / (2 - skewerCapacity / 16F));
+
+            var outputModifier = component.outputModifier;
+            if(!usedComponents.contains(component)) {
+                outputModifier *= 2F - skewerCapacity / 24F;
+                usedComponents.add(component);
+            }
+
+            if(outputModifier > 0) {
+                multipliers.add(outputModifier);
+                if (multipliers.size() != 1) {
+                    for (int i = 1; i < multipliers.size(); i++) {
+                        outputModifier *= multipliers.get(i);
+                    }
+                }
+                kebabMultiplier += outputModifier;
+            }
+        }
+
+        output = new ItemStack(skewer, (int) Math.min(body.getCount(), Math.ceil(kebabOutput * kebabMultiplier)));
+        var kebab = output.getOrCreateComponent("kebab", SkewerComponents.KEBAB);
+        kebab.getOrCreateNbt().putDouble("posY", -0.0625);
+        for (int i = 0; i < components.size() && i < skewerCapacity; i++) {
+            KebabComponent.addFood(kebab, components.get(i));
+        }
+
+        body.decrement(output.getCount());
     }
 
     public boolean isIngredientsFull() {
         for (ItemStack ingredient : ingredients) {
             if(ingredient.isEmpty())
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isIngredientsEmpty() {
+        for (ItemStack ingredient : ingredients) {
+            if(!ingredient.isEmpty())
                 return false;
         }
         return true;
@@ -123,8 +219,10 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
 
     public ActionResult swingAndSync() {
         assert world != null;
-        if(!world.isClient())
+        if(!world.isClient()) {
             sync();
+            markDirty();
+        }
         return ActionResult.success(world.isClient());
     }
 

@@ -16,27 +16,40 @@ import java.util.List;
 import java.util.Optional;
 
 public class SkeweredFoodComponent extends Component {
+
+    public final int size;
+    public final float outputModifier;
     protected final int hunger;
     protected final float saturationModifier;
     protected final List<Pair<StatusEffectInstance, Float>> statusEffects;
 
-    private SkeweredFoodComponent(int hunger, float saturation, Optional<List<Pair<StatusEffectInstance, Float>>> effects) {
+    private SkeweredFoodComponent(int hunger, float saturation, int size, float outputModifier, Optional<List<Pair<StatusEffectInstance, Float>>> effects) {
         this.hunger = hunger;
         this.saturationModifier = saturation;
+        this.size = size;
+        this.outputModifier = outputModifier;
         this.statusEffects = effects.orElse(new ArrayList<>());
     }
 
     @SafeVarargs
-    public static SkeweredFoodComponent of(int hunger, float saturation, @NotNull Pair<StatusEffectInstance, Float> ... statusEffects) {
-        return new SkeweredFoodComponent(hunger, saturation, Optional.of(List.of(statusEffects)));
+    public static SkeweredFoodComponent of(int hunger, float saturation, int size, float outputModifier, @NotNull Pair<StatusEffectInstance, Float> ... statusEffects) {
+        return new SkeweredFoodComponent(hunger, saturation, size, outputModifier, Optional.of(List.of(statusEffects)));
     }
 
-    public static SkeweredFoodComponent of(int hunger, float saturation) {
-        return new SkeweredFoodComponent(hunger, saturation, Optional.empty());
+    public static SkeweredFoodComponent of(int hunger, float saturation, int size, float outputModifier) {
+        return new SkeweredFoodComponent(hunger, saturation, size, outputModifier, Optional.empty());
     }
 
-    public static SkeweredFoodComponent of(FoodComponent component) {
-        return new SkeweredFoodComponent(component.getHunger(), component.getSaturationModifier(), Optional.ofNullable(component.getStatusEffects()));
+    public static SkeweredFoodComponent of(FoodComponent component, float outputModifier) {
+        return new SkeweredFoodComponent((int) Math.ceil(component.getHunger() / 4F), component.getSaturationModifier() / 4, 1, outputModifier, Optional.ofNullable(component.getStatusEffects()));
+    }
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public float getSaturationModifier() {
+        return saturationModifier;
     }
 
     @Override

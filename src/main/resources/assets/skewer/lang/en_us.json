@@ -1,8 +1,11 @@
 {
-  "block.skewer.prep_table": "Prep Table",
+  "itemGroup.skewer.cooking": "Skewer Cooking",
+  "itemGroup.skewer.foods": "Skewer Foods",
+  "itemGroup.skewer.farming": "Skewer Farming",
   "item.skewer.wooden_skewer" : "Skewer",
   "item.skewer.bamboo_skewer" : "Bamboo Skewer",
   "item.skewer.iron_skewer" : "Iron Skewer",
   "item.skewer.copper_skewer" : "Copper Skewer",
-  "item.skewer.full_skewer" : "Kebab"
+  "item.skewer.full_skewer" : "Kebab",
+  "block.skewer.prep_table": "Prep Table"
 }

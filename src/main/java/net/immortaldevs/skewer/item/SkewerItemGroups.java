@@ -14,7 +14,7 @@ public final class SkewerItemGroups {
             Skewer.locate("foods"),
             () -> new ItemStack(SkewerItems.WOODEN_SKEWER));
 
-    public static final ItemGroup CONDIMENTS = FabricItemGroupBuilder.build(
-            Skewer.locate("condiments"),
-            () -> new ItemStack(SkewerItems.AIOLI));
+    public static final ItemGroup FARMING = FabricItemGroupBuilder.build(
+            Skewer.locate("farming"),
+            () -> new ItemStack(SkewerItems.GARLIC));
 }
