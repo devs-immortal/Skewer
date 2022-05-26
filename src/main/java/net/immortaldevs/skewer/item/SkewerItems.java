@@ -37,6 +37,7 @@ public final class SkewerItems {
     public static final StewItem CHILLI_SAUCE = add("chilli_sauce", new StewItem(new Settings().group(SkewerItemGroups.FARMING).food(SkewerFoodComponents.CHILLI_SAUCE).maxCount(1)));
 
     public static final BlockItem PREP_TABLE_ITEM = add("prep_table", new BlockItem(SkewerBlocks.PREP_TABLE, cookingItem()));
+    public static final BlockItem PREPARATION_TABLE = add("preparation_table", new BlockItem(SkewerBlocks.PREPARATION_TABLE, cookingItem()));
 
     public static void init() {
     }

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "skewer:block/preparation_table"
+    },
+    "facing=east": {
+      "model": "skewer:block/preparation_table",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "skewer:block/preparation_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "skewer:block/preparation_table",
+      "y": 270
+    }
+  }
+}

@@ -2,18 +2,18 @@ package net.immortaldevs.skewer.component;
 
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceMap;
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
-import net.immortaldevs.sar.api.Component;
 import net.immortaldevs.sar.api.SarRegistries;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.registry.Registry;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 import static net.immortaldevs.skewer.Skewer.locate;
 
 public class SkeweredFoodComponents {
-    private static final Reference2ReferenceMap<Item, Component> FOODS =
+    private static final Reference2ReferenceMap<Item, SkeweredFoodComponent> FOODS =
             new Reference2ReferenceOpenHashMap<>();
 
     public static final SkeweredFoodComponent SKEWERED_APPLE = add("skewered_apple", Items.APPLE, 0.8F);
@@ -36,20 +36,22 @@ public class SkeweredFoodComponents {
     public static final SkeweredFoodComponent SKEWERED_ROTTEN_FLESH = add("skewered_rotten_flesh", Items.ROTTEN_FLESH, 0.7F);
     public static final SkeweredFoodComponent SKEWERED_SPIDER_EYE = add("skewered_spider_eye", Items.SPIDER_EYE, 1F);
 
-    public static SkeweredFoodComponent fromItem(Item item) {
-        return (SkeweredFoodComponent) FOODS.get(item);
+    public static @Nullable SkeweredFoodComponent get(Item item) {
+        return FOODS.get(item);
+    }
+
+    public static boolean contains(Item item) {
+        return FOODS.containsKey(item);
     }
 
     /**
      * Creates a new SkeweredFoodComponent from a base item.
      */
     private static SkeweredFoodComponent add(String id, Item base, float outputModifier) {
-        Objects.requireNonNull(base.getFoodComponent());
-        Objects.requireNonNull(FOODS);
-
-        SkeweredFoodComponent component = Registry.register(SarRegistries.COMPONENT, locate(id), SkeweredFoodComponent.of(base.getFoodComponent(), outputModifier));
+        SkeweredFoodComponent component = Registry.register(SarRegistries.COMPONENT,
+                locate(id),
+                SkeweredFoodComponent.of(Objects.requireNonNull(base.getFoodComponent()), outputModifier));
         FOODS.put(base, component);
-
         return component;
     }
 

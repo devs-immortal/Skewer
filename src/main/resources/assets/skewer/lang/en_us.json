@@ -7,5 +7,6 @@
   "item.skewer.iron_skewer" : "Iron Skewer",
   "item.skewer.copper_skewer" : "Copper Skewer",
   "item.skewer.full_skewer" : "Kebab",
-  "block.skewer.prep_table": "Prep Table"
+  "block.skewer.prep_table": "Prep Table",
+  "block.skewer.preparation_table": "Preparation Table"
 }

@@ -1,11 +1,14 @@
 package net.immortaldevs.skewer.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.immortaldevs.sar.base.client.ComponentModel;
 import net.immortaldevs.sar.base.client.LoadedModelComponentModel;
 import net.immortaldevs.skewer.component.SkewerCondimentComponents;
 import net.immortaldevs.skewer.component.SkeweredFoodComponents;
 
 @SuppressWarnings("unused")
+@Environment(EnvType.CLIENT)
 public final class SkewerComponentModels {
     public static final ComponentModel SKEWERED_APPLE = new SkeweredFoodComponentModel(SkeweredFoodComponents.SKEWERED_APPLE);
     public static final ComponentModel SKEWERED_BAKED_POTATO = new SkeweredFoodComponentModel(SkeweredFoodComponents.SKEWERED_BAKED_POTATO);

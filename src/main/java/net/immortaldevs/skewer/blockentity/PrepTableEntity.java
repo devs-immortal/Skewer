@@ -3,6 +3,7 @@ package net.immortaldevs.skewer.blockentity;
 import com.google.common.collect.ImmutableSet;
 import net.id.incubus_core.be.IncubusBaseBE;
 import net.id.incubus_core.util.InventoryWrapper;
+import net.immortaldevs.skewer.block.entity.SkewerBlockEntityTypes;
 import net.immortaldevs.skewer.component.KebabComponent;
 import net.immortaldevs.skewer.component.SkewerComponents;
 import net.immortaldevs.skewer.component.SkeweredFoodComponent;
@@ -36,7 +37,7 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
     private ItemStack output = ItemStack.EMPTY;
 
     public PrepTableEntity(BlockPos pos, BlockState state) {
-        super(SkewerBlockEntities.PREP_TABLE_TYPE, pos, state);
+        super(SkewerBlockEntityTypes.PREP_TABLE_TYPE, pos, state);
     }
 
     /**
@@ -49,7 +50,7 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
 
         var handItem = handStack.getItem();
         var random = world.getRandom();
-        SkeweredFoodComponent component = SkeweredFoodComponents.fromItem(handItem);
+        SkeweredFoodComponent component = SkeweredFoodComponents.get(handItem);
 
         // Check if the player is holding an item used in building dynamic foods.
         if(VALID_BODIES.contains(handItem)) {
@@ -136,10 +137,9 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
             if(ingredient.isEmpty())
                continue;
 
-            var component = SkeweredFoodComponents.fromItem(ingredient.getItem());
-            componentFill += component.size;
-            for (int slots = 0; slots < component.size; slots++) {
-                components.add(SkeweredFoodComponents.fromItem(ingredient.getItem()));
+            componentFill += 1;
+            for (int slots = 0; slots < 1; slots++) {
+                components.add(SkeweredFoodComponents.get(ingredient.getItem()));
             }
             ingredients.set(i, ItemStack.EMPTY);
         }
@@ -159,7 +159,7 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
             }
 
             if(outputModifier > 0) {
-                multipliers.add(outputModifier);
+                multipliers.add((float) outputModifier);
                 if (multipliers.size() != 1) {
                     for (int i = 1; i < multipliers.size(); i++) {
                         outputModifier *= multipliers.get(i);

@@ -1,12 +1,12 @@
 package net.immortaldevs.skewer.item;
 
+import net.immortaldevs.sar.api.ComponentCollection;
 import net.immortaldevs.sar.api.SkeletalComponentData;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
@@ -62,12 +62,12 @@ public class SkewerItem extends Item {
         SkeletalComponentData kebab = stack.getComponent("kebab");
         if (kebab == null) return;
 
-        SkeletalComponentData.Children foods = kebab.getChildren("foods");
+        ComponentCollection foods = kebab.getChildren("foods");
         for (int i = 0; i < foods.size(); i++) {
             tooltip.add(new LiteralText(foods.get(i).getComponent().getId().toString()));
         }
 
-        SkeletalComponentData.Children condiments = kebab.getChildren("condiments");
+        ComponentCollection condiments = kebab.getChildren("condiments");
         for (int i = 0; i < condiments.size(); i++) {
             tooltip.add(new LiteralText(condiments.get(i).getComponent().getId().toString()));
         }

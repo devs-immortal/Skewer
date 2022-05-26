@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "skewer:wooden_skewer",
+    "skewer:copper_skewer",
+    "skewer:iron_skewer",
+    "skewer:bamboo_skewer"
+  ]
+}

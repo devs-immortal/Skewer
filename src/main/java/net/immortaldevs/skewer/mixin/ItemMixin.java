@@ -7,12 +7,10 @@ import net.immortaldevs.skewer.component.SkewerComponents;
 import net.immortaldevs.skewer.component.SkewerCondimentComponents;
 import net.immortaldevs.skewer.component.SkeweredFoodComponents;
 import net.immortaldevs.skewer.item.SkewerItem;
-import net.immortaldevs.skewer.item.SkewerItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Item.class)
 public class ItemMixin {
-
     /**
      * Allows items to be put onto skewers when clicked with a skewer
      * in the inventory
@@ -45,7 +42,7 @@ public class ItemMixin {
 
     @Unique
     private boolean skewer$tryAddFoodToSkewer(ItemStack stack, StackReference cursorStackReference, PlayerEntity player) {
-        Component component = SkeweredFoodComponents.fromItem((Item) (Object) this);
+        Component component = SkeweredFoodComponents.get((Item) (Object) this);
         if (component == null) return false;
 
         if (cursorStackReference.get().getItem() instanceof SkewerItem skewer) {

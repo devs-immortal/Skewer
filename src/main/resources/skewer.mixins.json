@@ -4,9 +4,11 @@
   "package": "net.immortaldevs.skewer.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ItemMixin"
+    "ItemMixin",
+    "ToolMaterialsAccessor"
   ],
   "client": [
+    "client.BlockEntityRendererFactoriesAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

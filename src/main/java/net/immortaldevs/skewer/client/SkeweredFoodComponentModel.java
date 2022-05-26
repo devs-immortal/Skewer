@@ -1,5 +1,7 @@
 package net.immortaldevs.skewer.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.immortaldevs.sar.api.Component;
 import net.immortaldevs.sar.api.ComponentData;
 import net.immortaldevs.sar.base.client.LoadedModelComponentModel;
@@ -10,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class SkeweredFoodComponentModel extends LoadedModelComponentModel {
     public SkeweredFoodComponentModel(Component component) {
         super(component);
@@ -26,8 +29,8 @@ public class SkeweredFoodComponentModel extends LoadedModelComponentModel {
         translate: {
             NbtCompound nbt = data.getNbt();
             if (nbt == null) break translate;
-            double offset = nbt.getDouble("offset");
-            matrices.translate(offset - (3.75 / 16.0), offset - (3.75 / 16.0), 0.0);
+            float offset = nbt.getFloat("offset");
+            matrices.translate(offset - (3.75f / 16f), offset - (3.75f / 16f), 0.0);
         }
 
         super.itemRender(data, vertexConsumers, stack, matrices, renderMode, light, overlay);

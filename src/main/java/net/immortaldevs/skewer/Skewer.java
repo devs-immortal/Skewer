@@ -2,7 +2,7 @@ package net.immortaldevs.skewer;
 
 import net.fabricmc.api.ModInitializer;
 import net.immortaldevs.skewer.block.SkewerBlocks;
-import net.immortaldevs.skewer.blockentity.SkewerBlockEntities;
+import net.immortaldevs.skewer.block.entity.SkewerBlockEntityTypes;
 import net.immortaldevs.skewer.component.SkewerComponents;
 import net.immortaldevs.skewer.item.SkewerItems;
 import net.minecraft.util.Identifier;
@@ -19,7 +19,7 @@ public final class Skewer implements ModInitializer {
 
 		SkewerItems.init();
 		SkewerBlocks.init();
-		SkewerBlockEntities.init();
+		SkewerBlockEntityTypes.init();
 		SkewerComponents.init();
 	}
 
