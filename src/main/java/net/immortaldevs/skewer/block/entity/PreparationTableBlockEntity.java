@@ -28,7 +28,7 @@ public class PreparationTableBlockEntity extends BlockEntity {
         kebab.setCount(1);
 
         if (kebab.isEmpty()) return;
-        ComponentCollection skeweredFoods = kebab.getComponents("skewered_foods");
+        ComponentCollection skeweredFoods = kebab.getComponents("foods");
 
         boolean success = false;
         var context = new SkewerConstructionContext() {

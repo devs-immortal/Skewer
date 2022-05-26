@@ -20,9 +20,11 @@ public class SkewerCondimentComponents {
     public static final Component KELP_GOO = addCondiment("kelp_goo", SkewerItems.KELP_GOO, new Component());
     public static final SimpleComponent AIOLI = addCondiment("aioli", SkewerItems.AIOLI, new SimpleComponent(HungerModifier.add(2), SaturationModifierModifier.multiply(1.2f)));
     // Is this spelling on purpose?
+
+    // What spelling?
     public static final SimpleComponent CHILLI_SAUCE = addCondiment("chilli_sauce", SkewerItems.CHILLI_SAUCE, new SimpleComponent(SaturationModifierModifier.multiply(1.35f)));
 
-    public static Component fromItem(Item item) {
+    public static Component get(Item item) {
         return CONDIMENTS.get(item);
     }
 

@@ -55,12 +55,12 @@ public class SkeweredFoodComponent extends Component {
                            SkewerConstructionContext context) {
         int i = collection.size();
         if (context.getSkewer().getItem() instanceof SkewerItem skewerItem
-                && skewerItem.maxCapacity == i
-                || i > 2) return false;
+                ? skewerItem.maxCapacity <= i
+                : i > 2) return false;
 
         this.calculateOutput(collection, context);
         collection.add(this);
-        collection.get(i).getOrCreateNbt().putFloat("offset", 0.125f * i);
+        collection.get(i).getOrCreateNbt().putDouble("offset", 0.125 * i);
         if (!context.getPlayer().getAbilities().creativeMode) context.getFood().decrement(1);
 
         return true;

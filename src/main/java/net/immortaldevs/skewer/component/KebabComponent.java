@@ -13,7 +13,6 @@ public class KebabComponent extends Component {
     }
 
     public static void addFood(SkeletalComponentData kebab, Component food) {
-        System.out.println(food);
         ComponentCollection children = kebab.getChildren("foods");
         int i = children.size();
         children.add(food);
