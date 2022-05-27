@@ -18,11 +18,18 @@ import static net.minecraft.util.math.MathHelper.PI;
 @Environment(EnvType.CLIENT)
 public class PreparationTableBlockEntityRenderer implements BlockEntityRenderer<PreparationTableBlockEntity> {
     protected static final ItemPosition SKEWER_1
-            = new ItemPosition(0.25, 1.01171875, 0.8, HALF_PI, 0f, PI / 4);
+            = new ItemPosition(0.25, 1.01171875, 0.8, HALF_PI, 0f, PI * 0.25f);
     protected static final ItemPosition SKEWER_2
-            = new ItemPosition(0.25, 1.03515625, 0.8, HALF_PI, 0f, PI / 4 + 0.1f);
+            = new ItemPosition(0.25, 1.03515625, 0.8, HALF_PI, 0f, PI * 0.25f + 0.1f);
     protected static final ItemPosition SKEWER_5
-            = new ItemPosition(0.25, 1.05859375, 0.8, HALF_PI, 0f, PI / 4 - 0.07f);
+            = new ItemPosition(0.25, 1.05859375, 0.8, HALF_PI, 0f, PI * 0.25f - 0.07f);
+
+    protected static final ItemPosition KEBAB_1
+            = new ItemPosition(0.25, 1.01171875, 0.2, HALF_PI, 0f, PI * 0.25f);
+    protected static final ItemPosition KEBAB_2
+            = new ItemPosition(0.25, 1.03515625, 0.2, HALF_PI, 0f, PI * 0.25f - 0.1f);
+    protected static final ItemPosition KEBAB_5
+            = new ItemPosition(0.25, 1.05859375, 0.2, HALF_PI, 0f, PI * 0.25f + 0.07f);
 
     protected static final ItemPosition[] FOOD_POSITIONS = {
             new ItemPosition(0.5, 1.01171875, 0.5, HALF_PI, 0f, 0f),
@@ -57,6 +64,11 @@ public class PreparationTableBlockEntityRenderer implements BlockEntityRenderer<
         if (skewer.getCount() >= 1) renderItem(SKEWER_1, skewer, matrices, vertexConsumers, light, overlay);
         if (skewer.getCount() >= 2) renderItem(SKEWER_2, skewer, matrices, vertexConsumers, light, overlay);
         if (skewer.getCount() >= 5) renderItem(SKEWER_5, skewer, matrices, vertexConsumers, light, overlay);
+
+        ItemStack kebab = preparationTable.getKebab();
+        if (kebab.getCount() >= 1) renderItem(KEBAB_1, kebab, matrices, vertexConsumers, light, overlay);
+        if (kebab.getCount() >= 2) renderItem(KEBAB_2, kebab, matrices, vertexConsumers, light, overlay);
+        if (kebab.getCount() >= 5) renderItem(KEBAB_5, kebab, matrices, vertexConsumers, light, overlay);
 
         int n = 0;
         for (int i = 0; i < 16; i++) {

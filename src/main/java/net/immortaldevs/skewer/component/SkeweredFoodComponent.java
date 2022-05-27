@@ -1,12 +1,12 @@
 package net.immortaldevs.skewer.component;
 
 import com.mojang.datafixers.util.Pair;
-import net.immortaldevs.sar.api.Component;
 import net.immortaldevs.sar.api.ComponentCollection;
-import net.immortaldevs.sar.api.LarvalComponentData;
+import net.immortaldevs.sar.api.Modifier;
 import net.immortaldevs.sar.base.FoodStatusEffectModifier;
 import net.immortaldevs.sar.base.HungerModifier;
 import net.immortaldevs.sar.base.SaturationModifierModifier;
+import net.immortaldevs.sar.base.SimpleComponent;
 import net.immortaldevs.skewer.block.entity.PreparationTableBlockEntity.SkewerConstructionContext;
 import net.immortaldevs.skewer.item.SkewerItem;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -16,20 +16,19 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class SkeweredFoodComponent extends Component {
+public class SkeweredFoodComponent extends SimpleComponent {
     public final double outputModifier;
     protected final int hunger;
     protected final float saturationModifier;
-    protected final @Nullable List<Pair<StatusEffectInstance, Float>> statusEffects;
 
-    private SkeweredFoodComponent(int hunger,
-                                  float saturation,
-                                  double outputModifier,
-                                  @Nullable List<Pair<StatusEffectInstance, Float>> effects) {
+    protected SkeweredFoodComponent(int hunger,
+                                    float saturation,
+                                    double outputModifier,
+                                    @Nullable List<Pair<StatusEffectInstance, Float>> statusEffects) {
+        super(makeModifiers(hunger, saturation, statusEffects));
         this.hunger = hunger;
         this.saturationModifier = saturation;
         this.outputModifier = outputModifier;
-        this.statusEffects = effects == null ? List.of() : effects;
     }
 
     @SafeVarargs
@@ -95,13 +94,18 @@ public class SkeweredFoodComponent extends Component {
         return saturationModifier;
     }
 
-    @Override
-    public void init(LarvalComponentData data) {
-        data.addModifier(HungerModifier.add(this.hunger));
-        data.addModifier(SaturationModifierModifier.multiply(this.saturationModifier));
-        if (this.statusEffects != null) {
-            data.addModifier((FoodStatusEffectModifier) (stack, world, targetEntity, effects) ->
-                    effects.addAll(SkeweredFoodComponent.this.statusEffects));
-        }
+    private static Modifier[] makeModifiers(int hunger,
+                                            float saturation,
+                                            @Nullable List<Pair<StatusEffectInstance, Float>> statusEffects) {
+        Modifier[] modifiers;
+        if (statusEffects != null) {
+            modifiers = new Modifier[3];
+            modifiers[2] = (FoodStatusEffectModifier) (stack, world, targetEntity, effects) ->
+                    effects.addAll(statusEffects);
+        } else modifiers = new Modifier[2];
+
+        modifiers[0] = HungerModifier.add(hunger);
+        modifiers[1] = SaturationModifierModifier.multiply(saturation);
+        return modifiers;
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -46,11 +47,20 @@ public class PreparationTableBlock extends BlockWithEntity {
             return ActionResult.PASS;
         }
 
-        if (heldStack.isOf(SkewerItems.KNIFE)) {
+        ItemStack kebab = blockEntity.getKebab();
+        if (!kebab.isEmpty()) {
             if (world.isClient) return ActionResult.CONSUME;
+            if (blockEntity.applyCondiment(player, hand)) return ActionResult.SUCCESS;
 
-            blockEntity.assembleKebab(player, hand);
+            blockEntity.clearKebab();
+            ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), kebab);
             return ActionResult.SUCCESS;
+        }
+
+        if (SkeweredFoodComponents.contains(heldStack.getItem())) {
+            return !world.isClient && blockEntity.addFood(player, hand)
+                    ? ActionResult.SUCCESS
+                    : ActionResult.CONSUME;
         }
 
         if (heldStack.isIn(SkewerItemTags.SKEWERS)) {
@@ -60,12 +70,23 @@ public class PreparationTableBlock extends BlockWithEntity {
             return ActionResult.SUCCESS;
         }
 
-        //TODO taking items out of the table
-
-        if (SkeweredFoodComponents.contains(heldStack.getItem())) {
-            return !world.isClient && blockEntity.addFood(player, hand)
+        if (heldStack.isOf(SkewerItems.KNIFE)) {
+            return !world.isClient && blockEntity.assembleKebab(player, hand)
                     ? ActionResult.SUCCESS
                     : ActionResult.CONSUME;
+        }
+
+        if (world.isClient && blockEntity.canTakeItem()) {
+            return ActionResult.CONSUME;
+        } else {
+            ItemStack stack = blockEntity.takeItem(player);
+            if (stack != null) {
+                if (!player.getAbilities().creativeMode) {
+                    ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+                }
+
+                return ActionResult.SUCCESS;
+            }
         }
 
         return ActionResult.FAIL;

@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -54,18 +55,25 @@ public class SkewerItem extends Item {
 
     /*
      * Display skewered items on the tooltip
-     * todo translation (add keys to sar)
      */
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        if (!context.isAdvanced()) return;
+
         ComponentCollection foods = stack.getComponents("foods");
         for (int i = 0; i < foods.size(); i++) {
-            tooltip.add(new LiteralText(foods.get(i).getComponent().getId().toString()));
+            tooltip.add(new LiteralText(foods.get(i)
+                    .getComponent()
+                    .getId()
+                    .toString()).formatted(Formatting.DARK_GRAY));
         }
 
         ComponentCollection condiments = stack.getComponents("condiments");
         for (int i = 0; i < condiments.size(); i++) {
-            tooltip.add(new LiteralText(condiments.get(i).getComponent().getId().toString()));
+            tooltip.add(new LiteralText(condiments.get(i)
+                    .getComponent()
+                    .getId()
+                    .toString()).formatted(Formatting.DARK_GRAY));
         }
     }
 }

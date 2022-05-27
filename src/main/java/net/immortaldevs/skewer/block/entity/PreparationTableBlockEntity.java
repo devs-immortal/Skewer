@@ -1,6 +1,8 @@
 package net.immortaldevs.skewer.block.entity;
 
 import net.immortaldevs.sar.api.ComponentCollection;
+import net.immortaldevs.skewer.component.CondimentComponent;
+import net.immortaldevs.skewer.component.SkewerCondimentComponents;
 import net.immortaldevs.skewer.component.SkeweredFoodComponent;
 import net.immortaldevs.skewer.component.SkeweredFoodComponents;
 import net.minecraft.block.Block;
@@ -12,22 +14,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nullable;
+
 public class PreparationTableBlockEntity extends BlockEntity {
-    protected final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(17, ItemStack.EMPTY);
+    protected final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(18, ItemStack.EMPTY);
 
     public PreparationTableBlockEntity(BlockPos pos, BlockState state) {
         super(SkewerBlockEntityTypes.PREPARATION_TABLE, pos, state);
     }
 
-    public void assembleKebab(PlayerEntity player, Hand hand) {
-        ItemStack kebab = inventory.get(16).copy();
+    public boolean assembleKebab(PlayerEntity player, Hand hand) {
+        ItemStack kebab = this.inventory.get(16).copy();
         kebab.setCount(1);
 
-        if (kebab.isEmpty()) return;
+        if (kebab.isEmpty()) return false;
         ComponentCollection skeweredFoods = kebab.getComponents("foods");
 
         boolean success = false;
@@ -39,12 +42,12 @@ public class PreparationTableBlockEntity extends BlockEntity {
 
             @Override
             public ItemStack getFood() {
-                return inventory.get(index);
+                return PreparationTableBlockEntity.this.inventory.get(this.index);
             }
 
             @Override
             public void setFood(ItemStack food) {
-                inventory.set(index, food);
+                PreparationTableBlockEntity.this.inventory.set(this.index, food);
             }
 
             @Override
@@ -109,14 +112,11 @@ public class PreparationTableBlockEntity extends BlockEntity {
                 kebab.setCount(output);
             }
 
-            ItemScatterer.spawn(this.world,
-                    this.getPos().getX(),
-                    this.getPos().getY(),
-                    this.getPos().getZ(),
-                    kebab);
+            this.inventory.set(17, kebab);
         }
 
         this.updateListeners();
+        return success;
     }
 
     public void addSkewer(PlayerEntity player, Hand hand) {
@@ -157,14 +157,67 @@ public class PreparationTableBlockEntity extends BlockEntity {
         return false;
     }
 
+    public boolean applyCondiment(PlayerEntity player, Hand hand) {
+        ItemStack held = player.getStackInHand(hand);
+        ItemStack kebab = this.inventory.get(17);
+        CondimentComponent condiment = SkewerCondimentComponents.get(held.getItem());
+        boolean changed = condiment != null && condiment.applyTo(kebab.getComponents("condiments"),
+                held, kebab, player, hand);
+        this.updateListeners();
+        return changed;
+    }
+
+    public boolean canTakeItem() {
+        for (int i = 0; i < 17; i++) {
+            ItemStack stack = this.inventory.get(i);
+            if (!stack.isEmpty()) return true;
+        }
+
+        return false;
+    }
+
+    public @Nullable ItemStack takeItem(PlayerEntity player) {
+        if (player.isSneaking()) {
+            for (int i = 16; i >= 0; i--) {
+                ItemStack stack = this.takeItem(i);
+                if (stack != null) return stack;
+            }
+
+            return null;
+        } else {
+            for (int i = 15; i >= 0; i--) {
+                ItemStack stack = this.takeItem(i);
+                if (stack != null) return stack;
+            }
+
+            return this.takeItem(16);
+        }
+    }
+
+    protected @Nullable ItemStack takeItem(int index) {
+        ItemStack stack = this.inventory.get(index);
+        if (stack.isEmpty()) return null;
+        this.inventory.set(index, ItemStack.EMPTY);
+        this.updateListeners();
+        return stack;
+    }
+
     public ItemStack getSkewer() {
         return this.inventory.get(16);
     }
 
     public ItemStack getFood(int index) {
-        if (index >= 0 && index < 16) {
-            return this.inventory.get(index);
-        } else throw new IndexOutOfBoundsException("Index " + index + " out of bounds. Must be between 0 and 16");
+        if (index >= 0 && index < 16) return this.inventory.get(index);
+        throw new IndexOutOfBoundsException("Index " + index + " out of bounds. Must be between 0 and 16");
+    }
+
+    public ItemStack getKebab() {
+        return this.inventory.get(17);
+    }
+
+    public void clearKebab() {
+        this.inventory.set(17, ItemStack.EMPTY);
+        this.updateListeners();
     }
 
     @Override
