@@ -61,16 +61,16 @@ public class SkewerItem extends Item {
         if (!context.isAdvanced()) return;
 
         ComponentCollection foods = stack.getComponents("foods");
-        for (int i = 0; i < foods.size(); i++) {
-            tooltip.add(new LiteralText(foods.get(i)
+        for (var food : foods) {
+            tooltip.add(new LiteralText(food
                     .getComponent()
                     .getId()
                     .toString()).formatted(Formatting.DARK_GRAY));
         }
 
         ComponentCollection condiments = stack.getComponents("condiments");
-        for (int i = 0; i < condiments.size(); i++) {
-            tooltip.add(new LiteralText(condiments.get(i)
+        for (var condiment : condiments) {
+            tooltip.add(new LiteralText(condiment
                     .getComponent()
                     .getId()
                     .toString()).formatted(Formatting.DARK_GRAY));

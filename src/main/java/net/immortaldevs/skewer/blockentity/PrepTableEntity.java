@@ -138,6 +138,7 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
                continue;
 
             componentFill += 1;
+            // Isn't this just... Nevermind.
             for (int slots = 0; slots < 1; slots++) {
                 components.add(SkeweredFoodComponents.get(ingredient.getItem()));
             }
@@ -161,8 +162,8 @@ public class PrepTableEntity extends IncubusBaseBE implements InventoryWrapper {
             if(outputModifier > 0) {
                 multipliers.add((float) outputModifier);
                 if (multipliers.size() != 1) {
-                    for (int i = 1; i < multipliers.size(); i++) {
-                        outputModifier *= multipliers.get(i);
+                    for (var multiplier : multipliers) {
+                        outputModifier *= multiplier;
                     }
                 }
                 kebabMultiplier += outputModifier;

@@ -73,8 +73,9 @@ public class SkeweredFoodComponent extends SimpleComponent {
                 this.hunger / (this.saturationModifier * 4.0) / (2.0 - skewerItem.maxCapacity * 0.0625)));
 
         double outputModifier = this.outputModifier;
-        for (int i = 0; i < collection.size(); i++) {
-            if (collection.get(i).getComponent() == this) {
+        // TODO SAR create collection.contains method
+        for (var data : collection) {
+            if (data.getComponent() == this) {
                 outputModifier *= 2.0 - skewerItem.maxCapacity / 24.0;
                 break;
             }

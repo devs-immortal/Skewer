@@ -25,6 +25,7 @@ repositories {
 		url = "https://ladysnake.jfrog.io/artifactory/mods"
 	}
 	maven {
+		name = "Jitpack"
 		url = "https://jitpack.io"
 	}
 	maven {
